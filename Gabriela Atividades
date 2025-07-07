@@ -1,0 +1,43 @@
+-- Criando a tabela Clientes
+CREATE TABLE Clientes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL
+);
+
+-- Criando a tabela Livros
+CREATE TABLE Livros (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT NOT NULL
+);
+
+-- Criando a tabela Compras
+CREATE TABLE Compras (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cliente_id INTEGER,
+    livro_id INTEGER,
+    FOREIGN KEY (cliente_id) REFERENCES Clientes (id),
+    FOREIGN KEY (livro_id) REFERENCES Livros (id)
+);
+
+-- Inserindo dados nas tabelas
+INSERT INTO Clientes (nome) VALUES 
+    ('João Silva'),
+    ('Maria Oliveira'),
+    ('Carlos Souza');
+
+INSERT INTO Livros (titulo) VALUES 
+    ('SQL para Iniciantes'),
+    ('Banco de Dados Avançado'),
+    ('Desvendando SQLite');
+
+INSERT INTO Compras (cliente_id, livro_id) VALUES 
+    (1, 2),
+    (2, 3),
+    (3, 1),
+    (1, 3);
+
+-- Consulta com INNER JOIN
+SELECT Clientes.nome AS Cliente, Livros.titulo AS Livro
+FROM Compras
+INNER JOIN Clientes ON Compras.cliente_id = Clientes.id
+INNER JOIN Livros ON Compras.livro_id = Livros.id;
